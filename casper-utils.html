@@ -33,12 +33,14 @@
           return new Proxy(this, this);
       }
       get (target, prop) {
-        return this[prop] || function () {
-          if (localStorage.casperLoggerActive !== "true") {
-            return;
-          }
-          eval("this.console." + prop + ".apply( this, arguments );");
+        //return Function.prototype.bind.call(this.console[prop], this.console);
+        if (typeof this[prop] === "function") {
+          return this[prop];
         }
+        if (localStorage.casperLoggerActive !== "true") {
+          return function(){};
+        }
+        return Function.prototype.bind.call(this.console[prop], this.console);
       }
       enable () {
         localStorage.setItem("casperLoggerActive", true);
