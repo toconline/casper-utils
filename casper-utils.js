@@ -30,7 +30,7 @@ class CasperLogger {
     if (typeof this[prop] === "function") {
       return this[prop];
     }
-    if (localStorage.casperLoggerActive !== "true") {
+    if (!this['enabled']()) {
       return function(){};
     }
     return Function.prototype.bind.call(this.console[prop], this.console);
@@ -40,6 +40,9 @@ class CasperLogger {
   }
   disable () {
     localStorage.removeItem("casperLoggerActive");
+  }
+  enabled () {
+    return localStorage.casperLoggerActive === "true";
   }
 }
 
