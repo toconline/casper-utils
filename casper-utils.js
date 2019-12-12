@@ -53,38 +53,34 @@ window.console = new CasperLogger();
 * Casper Browser
 */
 
-class CasperBrowser {
-  // Firefox 1.0+
+export class CasperBrowser {
+
   static get isFirefox () {
-    return typeof InstallTrigger !== 'undefined';
+    return /Firefox\//.test(navigator.userAgent);
   }
 
-  // Internet Explorer 6-11
   static get isIE () {
     return navigator.userAgent.indexOf('MSIE') !== -1 || !!document.documentMode;
   }
 
-  // Edge 20+
   static get isEdge () {
-    return !CasperBrowser.isIE && !!window.StyleMedia;
+    return /Edg\//.test(navigator.userAgent);
   }
 
-  // Chrome 1+
   static get isChrome () {
-    return !!window.chrome;
+    return /Chrome\//.test(navigator.userAgent) && !/(Edg|Opera|OPR)\//.test(navigator.userAgent);
   }
 
-  // At least Safari 3+: "[object HTMLElementConstructor]"
+  static get isOpera () {
+    return /Opera|OPR\//.test(navigator.userAgent);
+  }
+
   static get isSafari ()  {
-    return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-           navigator.userAgent &&
-           navigator.userAgent.indexOf('CriOS') == -1 &&
-           navigator.userAgent.indexOf('FxiOS') == -1 &&
-           navigator.userAgent.indexOf('Chrome') == -1;
+    return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 && /Safari\//.test(navigator.userAgent);
   }
 
   static get isIos () {
-    return navigator && ( (navigator.platform === 'iPad' || navigator.platform === 'iPhone') || new RegExp('\\biPhone\\b|\\biPod\\b').test(window.navigator.userAgent) );
+    return navigator && (['iPad', 'iPhone'].includes(navigator.platform) || new RegExp('\\biPhone\\b|\\biPod\\b').test(window.navigator.userAgent));
   }
 }
 
