@@ -19,11 +19,11 @@
 */
 
 class CasperLogger {
-  constructor () {
-      if (window.console.constructor.name !== "CasperLogger") {
-        this.console = window.console;
-      }
-      return new Proxy(this, this);
+  constructor() {
+    if (window.console.constructor.name !== "CasperLogger") {
+      this.console = window.console;
+    }
+    return new Proxy(this, this);
   }
   get (target, prop) {
     //return Function.prototype.bind.call(this.console[prop], this.console);
@@ -31,7 +31,7 @@ class CasperLogger {
       return this[prop];
     }
     if (!this['enabled']()) {
-      return function(){};
+      return function () { };
     }
     return Function.prototype.bind.call(this.console[prop], this.console);
   }
@@ -46,7 +46,7 @@ class CasperLogger {
   }
 }
 
-window.console = new CasperLogger();
+// window.console = new CasperLogger();
 
 
 /**
@@ -75,7 +75,7 @@ export class CasperBrowser {
     return /Opera|OPR\//.test(navigator.userAgent);
   }
 
-  static get isSafari ()  {
+  static get isSafari () {
     return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 && /Safari\//.test(navigator.userAgent);
   }
 
