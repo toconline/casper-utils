@@ -46,7 +46,7 @@ class CasperLogger {
   }
 }
 
-// window.console = new CasperLogger();
+window.console = new CasperLogger();
 
 
 /**
