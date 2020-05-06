@@ -1,7 +1,10 @@
 {
   "description": "Some Casper Utils",
-  "name": "@casper2020/casper-utils",
+  "name": "@cloudware-casper/casper-utils",
   "version": "1.3.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
